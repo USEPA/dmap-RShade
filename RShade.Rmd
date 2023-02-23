@@ -1,7 +1,5 @@
 ---
-title: "Test run"
-author: Anton Antonov
-date: 2022-06-04
+title: "RShade"
 output: html_notebook
 ---
 
@@ -39,7 +37,7 @@ devtools::load_all()
 library(RShade)
 ```
 ```{r}
-shade_model_data <- read_csv("~/~/private/dmap-shade-model-preprocessing/data/Output.csv")
+shade_model_data <- read_csv("~/private/dmap-shade-model-preprocessing/data/Output.csv")
 ```
 
 PARALLEL: Chen method shade data prep and calculations.
@@ -63,7 +61,7 @@ fixed_site_inputs_ur <-
 
 ```{r}
 Chen_par_out_UR <- 
-  method_chen98_parchunk_star(
+  RShade::method_chen98_parchunk_star(
     fixed_site_df = fixed_site_inputs_ur, 
     time_interval = 60,
     extOpt = 0, # use Beer's Law
@@ -73,7 +71,7 @@ Chen_par_out_UR <-
     smpl_dir = "seven",
     star_veg = TRUE,
     vegzones = 13,
-    par_processes = 32
+    par_processes = 7 #max should be number of cores in instance - 1.
   )
 ```
 

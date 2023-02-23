@@ -130,7 +130,7 @@ method_chen98_parchunk_star <-                 # default value comments below
               .packages = c("magrittr","tidyverse")) %dopar% {
 
                 devtools::load_all()
-                library(EPAShader)
+                library(RShade)
 
                 # provide the subset of the data frame for the parallel process
                 par_dat <- data.frame(site_ls[[i]])
