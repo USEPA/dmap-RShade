@@ -1,4 +1,4 @@
-# EPAShader-R
+# RShade-R
 
 ## In brief
 
@@ -11,10 +11,10 @@ EPA shading modeling R-package.
 - Go to the directory that contains the directory of this README. 
   (It the parent directory of the directory "EPAShader".)
 
-- Run the shell command `R CMD build EPAShader`. For example:
+- Run the shell command `R CMD build RShade`. For example:
 
 ```shell
-EPAShader> cd ..
+RShade> cd ..
 r-packages> R CMD build EPAShader
 ```
 
@@ -42,17 +42,12 @@ devtools::install(<path/to/package/folder>)
    
    - If you do not have that zip file see above how to create it.
 
-- Install the R package `EPAShader` using Terminal:
+- Install the R package `RShade` using Terminal:
 
 ```shell
-R CMD INSTALL EPAShader_x.x.x.tar.gz 
+R CMD INSTALL RShade_x.x.x.tar.gz 
 ```
 
-### Directly from GitLab
-
-*TBD...*
-
------ 
 
 ## References
 
