@@ -1,0 +1,86 @@
+---
+title: "Test run"
+author: Anton Antonov
+date: 2022-06-04
+output: html_notebook
+---
+
+```{r setup}
+check_install_status <- require(chron, quietly = TRUE)
+
+
+if (check_install_status == FALSE){
+  install.packages("chron", quiet = TRUE)
+}
+
+check_install_status <- require(foreach, quietly = TRUE)
+
+if (check_install_status == FALSE){
+  install.packages("foreach", quiet = TRUE)
+}
+
+check_install_status <- require(doParallel, quietly = TRUE)
+
+if (check_install_status == FALSE){
+  install.packages("doParallel", quiet = TRUE)
+}
+
+remove(check_install_status)
+
+library(chron)
+library(magrittr)
+library(tidyverse)
+library(foreach)
+library(doParallel)
+```
+
+```{r}
+devtools::load_all()
+library(RShade)
+```
+```{r}
+shade_model_data <- read_csv("~/~/private/dmap-shade-model-preprocessing/data/Output.csv")
+```
+
+PARALLEL: Chen method shade data prep and calculations.
+
+```{r}
+fixed_site_inputs_ur <- 
+  RShade::inputs_fixed_star(site_id_chr = "site_id",
+                               site_data_frame = shade_model_data, 
+                               startdate = "2010-08-01",
+                               ndays = 3, 
+                               timezone = -8,
+                               dlstime = 1,
+                               VWidthGlobal = 10,
+                               JsntMethod = "Bras",
+                               cloudfrac_global=0,
+                               vegzones = "13",
+                               star_veg = TRUE,
+                               ripgelev = FALSE 
+  )
+```
+
+```{r}
+Chen_par_out_UR <- 
+  method_chen98_parchunk_star(
+    fixed_site_df = fixed_site_inputs_ur, 
+    time_interval = 60,
+    extOpt = 0, # use Beer's Law
+    cloudfrac_flag = "global",  # default uses global cloud fraction
+    shddenadd = 0.2, # Chen et al. 1998 model 20% constant pg311
+    ovhvegadd = 1,
+    smpl_dir = "seven",
+    star_veg = TRUE,
+    vegzones = 13,
+    par_processes = 32
+  )
+```
+
+
+```{r}
+write_csv(Chen_par_out_UR, 
+          file = "../output/UR_first20pts_solarflux_chen_star_output.csv")
+```
+
+
