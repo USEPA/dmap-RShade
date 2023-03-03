@@ -77,8 +77,7 @@ Chen_par_out_UR <-
 
 
 ```{r}
-write_csv(Chen_par_out_UR, 
-          file = "../output/UR_first20pts_solarflux_chen_star_output.csv")
+write_csv(Chen_par_out_UR, "RShade_Output.csv")
 ```
 
 
